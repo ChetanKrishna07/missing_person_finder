@@ -47,6 +47,7 @@ const LogIn = () => {
     //   "https://ymissing.herokuapp.com/api/auth/login",
     //   { email: values.email, password: values.password }
     // );
+    sessionStorage.setItem("MissingData", JSON.stringify([]));
     if (loginData.type === "error") {
       Swal.fire("Error", loginData.msg, "error");
     } else {

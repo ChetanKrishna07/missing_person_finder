@@ -55,12 +55,12 @@ const SideNav = (props) => {
               Missing
             </Menu.Item>
 
-            <Menu.Item key="/submitlist" icon={<BarChartOutlined />}>
+            {/* <Menu.Item key="/submitlist" icon={<BarChartOutlined />}>
               Submitted
             </Menu.Item>
             <Menu.Item key="/listfound" icon={<UploadOutlined />}>
               Found
-            </Menu.Item>
+            </Menu.Item> */}
 
             {/* <Menu.Item key="/dltrequest" icon={<UserDeleteOutlined />}>
           Delete Request

@@ -15,37 +15,36 @@ const Home = () => {
   const nav2 = useNavigate();
   const nav3 = useNavigate();
 
-  const [value, setValue] = useState(new Date());
+  // const [value, setValue] = useState(new Date());
   // to set data coming from api
-  const [dash, setDash] = useState({});
+  // const [dash, setDash] = useState({});
   // to aware data is loading
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const select = useSelector((state) => state.reducers);
-  const dashboardApi = async () => {
-    const getApi = await axios({
-      url: "https://ymissing.herokuapp.com/api/admin/dash",
-      method: "GET",
-      headers: {
-        apptoken: "App Token " + select.token,
-      },
-    });
-    console.log(getApi.data);
-    setDash(getApi.data);
-    setLoading(false);
-  };
-  useEffect(() => {
-    dashboardApi();
-    sessionStorage.setItem("MissingData", JSON.stringify([]));
-  }, []);
-  const handleMis = () => {
-    nav1("/listmissing");
-  };
-  const handlesubmit = () => {
-    nav2("/submitlist");
-  };
-  const handlefound = () => {
-    nav3("/listfound");
-  };
+  // const dashboardApi = async () => {
+  //   const getApi = await axios({
+  //     url: "https://ymissing.herokuapp.com/api/admin/dash",
+  //     method: "GET",
+  //     headers: {
+  //       apptoken: "App Token " + select.token,
+  //     },
+  //   });
+  //   console.log(getApi.data);
+  //   setDash(getApi.data);
+  //   setLoading(false);
+  // };
+  // useEffect(() => {
+  //   dashboardApi();
+  // }, []);
+  // const handleMis = () => {
+  //   nav1("/listmissing");
+  // };
+  // const handlesubmit = () => {
+  //   nav2("/submitlist");
+  // };
+  // const handlefound = () => {
+  //   nav3("/listfound");
+  // };
   return (
     <div>
       <HeaderTitle />

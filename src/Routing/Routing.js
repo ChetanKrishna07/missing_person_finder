@@ -12,10 +12,10 @@ const PrivateRoute = React.lazy(() => import("./PrivateRoute"));
 const PostMissing = React.lazy(() => import("../dashboard/PostMissing"));
 const ListMissing = React.lazy(() => import("../dashboard/ListMissing"));
 const About = React.lazy(() => import("../dashboard/About"));
-const ListFound = React.lazy(() => import("../dashboard/ListFound"));
-const MissingSubmitted = React.lazy(() =>
-  import("../dashboard/MissingSubmitted")
-);
+// const ListFound = React.lazy(() => import("../dashboard/ListFound"));
+// const MissingSubmitted = React.lazy(() =>
+//   import("../dashboard/MissingSubmitted")
+// );
 
 const Routing = () => {
   // redux state bata data lina selector
@@ -77,7 +77,7 @@ const Routing = () => {
               </PrivateRoute>
             }
           />
-          <Route
+          {/* <Route
             path="/listfound"
             element={
               <PrivateRoute isLogged={isLogged}>
@@ -92,7 +92,7 @@ const Routing = () => {
                 <MissingSubmitted />
               </PrivateRoute>
             }
-          />
+          /> */}
 
           <Route path="/*" element={<Errors />} />
         </Routes>
