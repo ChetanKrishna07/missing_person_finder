@@ -35,35 +35,39 @@ const PostMissing = () => {
   const nav = useNavigate();
   // function to handle form data
   const onFinish = async (values) => {
-    console.log(values);
-    let formData = new FormData();
-    formData.append("name", values.name);
-    formData.append("location", values.location);
-    formData.append("contact_person", values.contact_person);
-    formData.append("contact_number", values.contact_number);
-    formData.append("image", values.image[0].originFileObj);
-    let postMissing = await axios({
-      url: "https://ymissing.herokuapp.com/api/admin/missing",
-      method: "POST",
-      headers: {
-        apptoken: "App Token " + selector.token,
-      },
-      data: formData,
-    });
-    console.log(postMissing.data);
-    if (postMissing.data.type === "error") {
-      Swal.fire("Error", postMissing.data.msg, "error");
-    } else {
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: postMissing.data.msg,
-        showConfirmButton: false,
-        timer: 1500,
-        toast: "true",
-      });
-      nav("/listmissing");
-    }
+    let formData = {};
+    formData["name"] = values.name;
+    formData["location"] = values.location;
+    formData["contact_person"] = values.contact_person;
+    formData["contact_number"] = values.contact_number;
+    formData["Status"] = "Missing";
+    let missing = JSON.parse(sessionStorage.getItem("MissingData"));
+    console.log(formData);
+    missing.push(formData)
+    sessionStorage.setItem("MissingData", JSON.stringify(missing));
+    // let postMissing = await axios({
+    //   url: "https://ymissing.herokuapp.com/api/admin/missing",
+    //   method: "POST",
+    //   headers: {
+    //     apptoken: "App Token " + selector.token,
+    //   },
+    //   data: formData,
+    // });
+    // console.log(postMissing.data);
+    // if (postMissing.data.type === "error") {
+    //   Swal.fire("Error", postMissing.data.msg, "error");
+    // } else {
+    //   Swal.fire({
+    //     position: "top-end",
+    //     icon: "success",
+    //     title: postMissing.data.msg,
+    //     showConfirmButton: false,
+    //     timer: 1500,
+    //     toast: "true",
+    //   });
+    //   nav("/listmissing");
+    // }
+    // nav("/listmissing");
   };
 
   return (
@@ -105,21 +109,7 @@ const PostMissing = () => {
                 <Input placeholder="Contact Number" bordered={true}></Input>
               </Form.Item>
               {/* field for photo upload */}
-              <Form.Item
-                name="image"
-                // label="Upload"
-                valuePropName="fileList"
-                getValueFromEvent={normFile}
-                // extra="Upload Photo"
-              >
-                <Upload
-                  name="image"
-                  listType="picture"
-                  beforeUpload={() => false}
-                >
-                  <Button icon={<UploadOutlined />}>Click to upload</Button>
-                </Upload>
-              </Form.Item>
+
               <Button
                 htmlType="submit"
                 className="login-form-button"

@@ -35,6 +35,7 @@ const Home = () => {
   };
   useEffect(() => {
     dashboardApi();
+    sessionStorage.setItem("MissingData", JSON.stringify([]));
   }, []);
   const handleMis = () => {
     nav1("/listmissing");
@@ -60,47 +61,8 @@ const Home = () => {
             mollitia itaque similique aut aliquid blanditiis quae voluptas vel!{" "}
             <br />
           </Content>
-          <Sider className="sider">
-            <Calendar onChange={setValue} value={value} className="calendar" />
-          </Sider>
         </Layout>{" "}
         <br />
-        <Layout>
-          <h1 className="dashboard">
-            <u>Dashboard</u>
-          </h1>{" "}
-          <br />
-        </Layout>
-        <Layout style={{ marginLeft: 100 }}>
-          {loading ? (
-            "Dashboard is Loading"
-          ) : (
-            <>
-              <Row gutter={16} style={{ marginLeft: 5 }}>
-                <Col className="gutter-row" span={6}>
-                  <Card className="card1" onClick={handleMis}>
-                    {dash.data.missing} <br />
-                    Missing Persons
-                  </Card>
-                </Col>
-
-                <Col className="gutter-row" span={6}>
-                  <Card className="card2" onClick={handlesubmit}>
-                    {dash.data.submitted} <br />
-                    Report Submitted
-                  </Card>
-                </Col>
-
-                <Col className="gutter-row" span={8}>
-                  <Card className="card3" onClick={handlefound}>
-                    {dash.data.found} <br />
-                    Found Persons
-                  </Card>
-                </Col>
-              </Row>
-            </>
-          )}
-        </Layout>
       </SideNav>
     </div>
   );

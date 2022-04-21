@@ -15,7 +15,6 @@ const ListMissing = () => {
   const [list, setList] = useState([]);
   const selector = useSelector((state) => state.reducers);
   const getApiData = async () => {
-    setLoading(true);
     // const listData = await axios({
     //   url: "https://ymissing.herokuapp.com/api/admin/missing",
     //   method: "GET",
@@ -23,7 +22,8 @@ const ListMissing = () => {
     //     apptoken: "App Token " + selector.token,
     //   },
     // });
-const listData = await autheticatedApi("GET","/admin/missing")
+    // const listData = await autheticatedApi("GET","/admin/missing")
+    const listData = JSON.parse(sessionStorage.getItem("MissingData"));
 
     setList(listData);
     setLoading(false);
@@ -33,27 +33,31 @@ const listData = await autheticatedApi("GET","/admin/missing")
     getApiData();
   }, []);
   // to handle delete button
-  const deleteList = async (id) => {
-    let deleteApi = await axios({
-      url: "https://ymissing.herokuapp.com/api/admin/missing/" + id,
-      method: "DELETE",
-      headers: {
-        apptoken: "App Token " + selector.token,
-      },
-    });
-    if (deleteApi.data.type === "error") {
-      Swal.fire("Error", deleteApi.data.msg, "error");
-    } else {
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: deleteApi.data.msg,
-        showConfirmButton: false,
-        timer: 1500,
-        toast: "true",
-      });
-      getApiData();
-    }
+  const deleteList = async (index) => {
+    // let deleteApi = await axios({
+    //   url: "https://ymissing.herokuapp.com/api/admin/missing/" + id,
+    //   method: "DELETE",
+    //   headers: {
+    //     apptoken: "App Token " + selector.token,
+    //   },
+    // });
+    // if (deleteApi.data.type === "error") {
+    //   Swal.fire("Error", deleteApi.data.msg, "error");
+    // } else {
+    //   Swal.fire({
+    //     position: "top-end",
+    //     icon: "success",
+    //     title: deleteApi.data.msg,
+    //     showConfirmButton: false,
+    //     timer: 1500,
+    //     toast: "true",
+    //   });
+    //   getApiData();
+    // }
+    let listData = list
+    listData.pop(index);
+    getApiData();
+    sessionStorage.setItem("MissingData", JSON.stringify(listData));
   };
   return (
     <div>
@@ -65,7 +69,7 @@ const listData = await autheticatedApi("GET","/admin/missing")
           <>
             <h1 className="missinglisthead">Missing Person List</h1> <hr />
             <Row justify="start">
-              {list.missing.map((data, index) => {
+              {list.map((data, index) => {
                 return (
                   <Layout className="site-layout" style={{ marginLeft: 90 }}>
                     <Col span={6}>
@@ -77,13 +81,6 @@ const listData = await autheticatedApi("GET","/admin/missing")
                           backgroundColor: "#CDE4ED",
                           border: "1px solid red",
                         }}
-                        cover={
-                          <img
-                            src={data.image}
-                            alt="Photo"
-                            className="missingCard"
-                          />
-                        }
                         title={
                           <Title
                             level={3}
@@ -93,7 +90,7 @@ const listData = await autheticatedApi("GET","/admin/missing")
                           </Title>
                         }
                       >
-                        <Meta 
+                        <Meta
                           title={data.name}
                           description={
                             <>
@@ -107,7 +104,7 @@ const listData = await autheticatedApi("GET","/admin/missing")
                         <br />
                         {/* DELETE BUTTON */}
                         <Button
-                          onClick={() => deleteList(data._id)}
+                          onClick={() => deleteList(index)}
                           type="danger"
                         >
                           Delete
